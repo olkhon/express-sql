@@ -18,6 +18,25 @@ module.exports = {
             res.sendStatus(404);
         }
     },
+    updateOrder: async (req, res) => {
+
+        const {price, date, user_id, id} = req.params;
+
+        try {
+            const answerDB = await pool.query('UPDATE orders SET price = $1, date = $2, user_id= $3 WHERE id = $4',
+            [price, date, user_id, id]);
+            res.json({
+                message: "Update user with id:" + id,
+                code: 200,
+                description: "User update with id:" + id,
+                data: answerDB.rows[0]
+            })
+
+        }catch (e) {
+            console.log(e);
+            res.sendStatus(404);
+        }
+    },
     deleteOrder: async(req, res) => {
         const {id} = req.params;
         console.log(id);

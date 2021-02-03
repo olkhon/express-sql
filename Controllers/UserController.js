@@ -19,6 +19,25 @@ module.exports = {
             res.sendStatus(404);
         }
     },
+    updateUser: async (req, res) => {
+
+        const {first_name, last_name, age, id} = req.params;
+
+        try {
+            const answerDB = await pool.query('UPDATE users SET first_name = $1, last_name = $2, age= $3 WHERE id = $4',
+            [first_name, last_name, age, id]);
+            res.json({
+                message: "Update user with id:" + id,
+                code: 200,
+                description: "User update with id:" + id,
+                data: answerDB.rows[0]
+            })
+
+        }catch (e) {
+            console.log(e);
+            res.sendStatus(404);
+        }
+    },
     deleteUser: async(req, res) => {
         const {id} = req.params;
         console.log(id);
