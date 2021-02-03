@@ -19,23 +19,23 @@ module.exports = {
             res.sendStatus(404);
         }
     },
-    // deleteUser: async(req, res) => {
-    //     const {id} = req.params;
-    //     console.log(id);
-    //     try {
-    //         const answerDB = await pool.query('DELETE FROM users WHERE id = $1', [id]);
-    //         res.json({
-    //             message: "Delete" + id,
-    //             code: 200,
-    //             description: "User with id:" + id,
-    //             data: answerDB.rows[0]
-    //         })
+    deleteUser: async(req, res) => {
+        const {id} = req.params;
+        console.log(id);
+        try {
+            const answerDB = await pool.query('DELETE FROM users WHERE id = $1', [id]);
+            res.json({
+                message: "Delete" + id,
+                code: 200,
+                description: "User with id:" + id,
+                data: answerDB.rows[0]
+            })
 
-    //     }catch (e) {
-    //         console.log(e);
-    //         res.sendStatus(404);
-    //     }
-    // },
+        }catch (e) {
+            console.log(e);
+            res.sendStatus(404);
+        }
+    },
     getUserById: async(req, res) => {
 
         const {id} = req.params;

@@ -18,6 +18,23 @@ module.exports = {
             res.sendStatus(404);
         }
     },
+    deleteOrder: async(req, res) => {
+        const {id} = req.params;
+        console.log(id);
+        try {
+            const answerDB = await pool.query('DELETE FROM orders WHERE id = $1', [id]);
+            res.json({
+                message: "Delete order" + id,
+                code: 200,
+                description: "Order deleted with id:" + id,
+                data: answerDB.rows[0]
+            })
+
+        }catch (e) {
+            console.log(e);
+            res.sendStatus(404);
+        }
+    },
     getOrderById: async(req, res) => {
 
         const {id} = req.params;
