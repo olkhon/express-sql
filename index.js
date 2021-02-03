@@ -3,6 +3,8 @@ const app = express();
 
 const dotenv = require('dotenv');
 dotenv.config();
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const userRoutes = require('./Routes/user');
 const orderRoutes = require('./Routes/orders');

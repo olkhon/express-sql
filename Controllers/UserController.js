@@ -1,7 +1,41 @@
 const pool = require('../dbconfig');
 
-module.exports = {
 
+module.exports = {
+    newUser: async(req, res) => {
+        const {first_name, last_name, age} = req.body;
+
+        try {
+            const answerDB = await pool.query('INSERT INTO users (first_name, last_name, age) VALUES ( $1, $2, $3)', [first_name, last_name, age]);
+            res.json({
+                message: "New user with the following values:" + [first_name, last_name, age],
+                code: 200,
+                description: "User added" + [first_name, last_name, age],
+                data: answerDB.rows
+            })
+
+        }catch (e) {
+            console.log(e);
+            res.sendStatus(404);
+        }
+    },
+    // deleteUser: async(req, res) => {
+    //     const {id} = req.params;
+    //     console.log(id);
+    //     try {
+    //         const answerDB = await pool.query('DELETE FROM users WHERE id = $1', [id]);
+    //         res.json({
+    //             message: "Delete" + id,
+    //             code: 200,
+    //             description: "User with id:" + id,
+    //             data: answerDB.rows[0]
+    //         })
+
+    //     }catch (e) {
+    //         console.log(e);
+    //         res.sendStatus(404);
+    //     }
+    // },
     getUserById: async(req, res) => {
 
         const {id} = req.params;

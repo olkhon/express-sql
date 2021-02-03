@@ -1,7 +1,23 @@
 const pool = require('../dbconfig');
 
 module.exports = {
+    newOrder: async(req, res) => {
+        const {price, date, user_id} = req.body;
 
+        try {
+            const answerDB = await pool.query('INSERT INTO orders (price, date, user_id) VALUES ( $1, $2, $3)', [price, date, user_id]);
+            res.json({
+                message: "New user with the following values:" + [price, date, user_id],
+                code: 200,
+                description: "User added" + [price, date, user_id],
+                data: answerDB.rows
+            })
+
+        }catch (e) {
+            console.log(e);
+            res.sendStatus(404);
+        }
+    },
     getOrderById: async(req, res) => {
 
         const {id} = req.params;
